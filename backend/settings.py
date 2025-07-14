@@ -69,7 +69,7 @@ MIDDLEWARE = [
 ]
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-CORS_ALLOWED_ORIGINS = ["hemonisyfood.com"]
+CORS_ALLOWED_ORIGINS = ["*"]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
