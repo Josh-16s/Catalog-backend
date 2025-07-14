@@ -31,7 +31,12 @@ class Command(BaseCommand):
             'minimie': 'media/products/minimienoodles.png',
             'noodle_goat': 'media/products/noodle_goat_meat_large.jpg',
             'noodle_jollof': 'media/products/noodles-jollof-chicken-large-1-1.jpg',
-            'pasta_spaghetti': 'media/products/pasta-auntie-b-spaghetti-large-1.jpg'
+            'pasta_spaghetti': 'media/products/pasta-auntie-b-spaghetti-large-1.jpg',
+            'tasty_tom': 'media/products/tastytomJollof.webp',
+            'goldenpennyflour' :'media/products/goldenpennytwist.png',
+            'goldenjollofhot' :'media/products/goldenjollofhot.jpg',
+            'goldenpennysugar':'media/products/Golden-Penny-Cube-Sugar-sm.jpg',
+            'yumbowl':'media/products/yumbowl.jpg',
         }
         
         # Upload all images and store URLs
@@ -48,7 +53,7 @@ class Command(BaseCommand):
         # Create categories
         categories = [
             'Semolina', 'Noodles', 'Spreads', 'Vitamins', 'Seasoning', 
-            'Snacks', 'Flour', 'Pasta', 'Sugar', 'Instant Foods'
+            'Snacks', 'Flour', 'Pasta', 'Sugar', 'Instant Foods', 'Cereal',
         ]
         for cat in categories:
             Category.objects.get_or_create(name=cat)
@@ -155,7 +160,7 @@ class Command(BaseCommand):
                 "description": "Premium butter spread in convenient sachet packaging",
                 "category": Category.objects.get(name="Spreads"),
                 "price": Decimal('11500.00'),
-                "unit": "15g sachet",
+                "unit": "15g",
                 "on_sale": False,
                 "sale_price": None,
                 "image": uploaded_images.get('spread')
@@ -221,7 +226,7 @@ class Command(BaseCommand):
                 "image": uploaded_images.get('auntieb_semo')
             },
             {
-                "name": "Honeywell Penny Semolina 1kg",
+                "name": "Honeywell  Semolina 1kg",
                 "description": "Premium semolina flour for making smooth and delicious semovita",
                 "category": Category.objects.get(name="Semolina"),
                 "price": Decimal('14650.00'),
@@ -231,7 +236,7 @@ class Command(BaseCommand):
                 "image": uploaded_images.get('honeywellsemo')
             },
             {
-                "name": "Honeywell Penny Semolina 2kg",
+                "name": "Honeywell Semolina 2kg",
                 "description": "Premium semolina flour for making smooth and delicious semovita",
                 "category": Category.objects.get(name="Semolina"),
                 "price": Decimal('14650.00'),
@@ -241,7 +246,7 @@ class Command(BaseCommand):
                 "image": uploaded_images.get('honeywellsemo')
             },
             {
-                "name": "Honeywell Penny Semolina 5kg",
+                "name": "Honeywell Semolina",
                 "description": "Premium semolina flour for making smooth and delicious semovita",
                 "category": Category.objects.get(name="Semolina"),
                 "price": Decimal('14650.00'),
@@ -251,7 +256,7 @@ class Command(BaseCommand):
                 "image": uploaded_images.get('honeywellsemo')
             },
             {
-                "name": "Honeywell Penny Semolina 10kg",
+                "name": "Honeywell Semolina",
                 "description": "Premium semolina flour for making smooth and delicious semovita",
                 "category": Category.objects.get(name="Semolina"),
                 "price": Decimal('14650.00'),
@@ -261,7 +266,7 @@ class Command(BaseCommand):
                 "image": uploaded_images.get('honeywellsemo')
             },
             {
-                "name": "Honeywell whole wheat meal 1kg",
+                "name": "Honeywell whole wheat meal",
                 "description": "Premium wheat flour for making smooth and delicious wheat meal",
                 "category": Category.objects.get(name="Semolina"),
                 "price": Decimal('14650.00'),
@@ -271,7 +276,7 @@ class Command(BaseCommand):
                 "image": uploaded_images.get('honeywellwheat')
             },
             {
-                "name": "Honeywell whole wheat meal 2kg",
+                "name": "Honeywell whole wheat meal",
                 "description": "Premium wheat flour for making smooth and delicious wheat meal",
                 "category": Category.objects.get(name="Semolina"),
                 "price": Decimal('14650.00'),
@@ -281,7 +286,7 @@ class Command(BaseCommand):
                 "image": uploaded_images.get('honeywellwheat')
             },
             {
-                "name": "Honeywell whole wheat meal 5kg",
+                "name": "Honeywell whole wheat meal",
                 "description": "Premium wheat flour for making smooth and delicious wheat meal",
                 "category": Category.objects.get(name="Semolina"),
                 "price": Decimal('14650.00'),
@@ -331,9 +336,9 @@ class Command(BaseCommand):
                 "image": uploaded_images.get('knorr')
             },
             {
-                "name": "Chin Chin",
-                "description": "Crispy and sweet traditional Nigerian snack",
-                "category": Category.objects.get(name="Snacks"),
+                "name": "Golden Penny Twist",
+                "description": "Premium marcaroni for everyday cooking",
+                "category": Category.objects.get(name="Pasta"),
                 "price": Decimal('12150.00'),
                 "unit": "pack",
                 "on_sale": False,
@@ -348,27 +353,27 @@ class Command(BaseCommand):
                 "unit": "pack",
                 "on_sale": False,
                 "sale_price": None,
-                "image": uploaded_images.get('noodle_jollof')
+                "image": uploaded_images.get('tasty_tom')
             },
             {
-                "name": "Wheat Flour 4.75kg",
+                "name": "Golden Penny Wheat Flour",
                 "description": "Premium wheat flour for baking and cooking",
                 "category": Category.objects.get(name="Flour"),
                 "price": Decimal('5500.00'),
                 "unit": "4.75kg",
                 "on_sale": False,
                 "sale_price": None,
-                "image": uploaded_images.get('semovita')
+                "image": uploaded_images.get('goldenpennyflour')
             },
             {
                 "name": "Jollof Hot Hot",
-                "description": "Spicy jollof rice seasoning mix",
-                "category": Category.objects.get(name="Seasoning"),
+                "description": "Spicy jollof hot noodles flavor mix",
+                "category": Category.objects.get(name="Noodles"),
                 "price": Decimal('6800.00'),
                 "unit": "pack",
                 "on_sale": False,
                 "sale_price": None,
-                "image": uploaded_images.get('noodle_jollof')
+                "image": uploaded_images.get('goldenjollofhot')
             },
             {
                 "name": "Sugar Cube Regular",
@@ -388,7 +393,7 @@ class Command(BaseCommand):
                 "unit": "500g",
                 "on_sale": False,
                 "sale_price": None,
-                "image": uploaded_images.get('semovita')
+                "image": uploaded_images.get('goldenpennysugar')
             },
             {
                 "name": "Sugar Cube 250g",
@@ -398,7 +403,7 @@ class Command(BaseCommand):
                 "unit": "250g",
                 "on_sale": False,
                 "sale_price": None,
-                "image": uploaded_images.get('semovita')
+                "image": uploaded_images.get('goldenpennysugar')
             },
             {
                 "name": "Amazing Day Sachet",
@@ -412,34 +417,25 @@ class Command(BaseCommand):
             },
             {
                 "name": "Yum Bowl Sachet",
-                "description": "Instant noodle bowl with rich flavoring",
+                "description": "Instant cereal bowl with rich flavoring",
                 "category": Category.objects.get(name="Instant Foods"),
                 "price": Decimal('18100.00'),
                 "unit": "sachet",
                 "on_sale": False,
                 "sale_price": None,
-                "image": uploaded_images.get('noodle_jollof')
+                "image": uploaded_images.get('yumbowl')
             },
             {
                 "name": "Yum Bowl Refill",
-                "description": "Refill pack for Yum Bowl instant noodles",
+                "description": "Refill pack for Yum Bowl instant cereal",
                 "category": Category.objects.get(name="Instant Foods"),
                 "price": Decimal('12200.00'),
                 "unit": "refill",
                 "on_sale": False,
                 "sale_price": None,
-                "image": uploaded_images.get('noodle_jollof')
+                "image": uploaded_images.get('yumbowl')
             },
-            {
-                "name": "Twist 200g",
-                "description": "Crunchy snack perfect for any time of day",
-                "category": Category.objects.get(name="Snacks"),
-                "price": Decimal('9000.00'),
-                "unit": "200g",
-                "on_sale": False,
-                "sale_price": None,
-                "image": uploaded_images.get('twist')
-            },
+           
         ]
         
         # Create product variants for each branch
@@ -454,7 +450,8 @@ class Command(BaseCommand):
                     on_sale=p["on_sale"],
                     sale_price=p["sale_price"],
                     branch=branch,
-                    image=p["image"]
+                    image=p["image"],
+                    stock_quantity = 100
                 )
         
         self.stdout.write(self.style.SUCCESS('Successfully seeded database with product data for all branches'))

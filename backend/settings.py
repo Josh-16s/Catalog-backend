@@ -72,7 +72,8 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 CORS_ALLOWED_ORIGINS = [
     "https://hemonisyfood.com",
     "http://hemonisyfood.com",  
-    "http://hemonisyfood.com/",
+    "http://hemonisyfood.com",
+    "http://localhost:5173"
 ]
 
 REST_FRAMEWORK = {
