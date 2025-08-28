@@ -90,6 +90,46 @@ class ProductViewSet(viewsets.ModelViewSet):
 
         return queryset
 
+    def create(self, request, *args, **kwargs):
+        print("=== CREATE PRODUCT REQUEST ===")
+        print("Request data:", request.data)
+        
+        data = request.data.copy()
+        
+        # Handle new category creation
+        category_value = data.get('category')
+        print(f"Category value received: {category_value} (type: {type(category_value)})")
+        
+        if category_value and isinstance(category_value, str) and not category_value.isdigit():
+            print(f"Creating new category: {category_value}")
+            try:
+                category, created = Category.objects.get_or_create(
+                    name=category_value,
+                    defaults={
+                        'description': f'Auto-created category: {category_value}',
+                        'created_by': request.user if request.user.is_authenticated else None
+                    }
+                )
+                data['category'] = category.id
+                print(f"{'Created new' if created else 'Found existing'} category with ID: {category.id}")
+            except Exception as e:
+                print(f"Error creating category: {str(e)}")
+                return Response(
+                    {'error': f'Failed to create category: {str(e)}'}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+        
+        print("Final data being sent to serializer:", data)
+        
+        serializer = self.get_serializer(data=data)
+        if not serializer.is_valid():
+            print("Validation errors:", serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
     def perform_create(self, serializer):
         serializer.save()
 
@@ -97,17 +137,44 @@ class ProductViewSet(viewsets.ModelViewSet):
         serializer.save()
 
     def update(self, request, *args, **kwargs):
+        print("=== UPDATE PRODUCT REQUEST ===")
+        print("Request data:", request.data)
+        
         partial = kwargs.pop('partial', True)
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        data = request.data.copy()
         
-        print("Request data:", request.data)
+        # Handle new category creation during update
+        category_value = data.get('category')
+        print(f"Category value received: {category_value} (type: {type(category_value)})")
+        
+        if category_value and isinstance(category_value, str) and not category_value.isdigit():
+            print(f"Creating new category during update: {category_value}")
+            try:
+                category, created = Category.objects.get_or_create(
+                    name=category_value,
+                    defaults={
+                        'description': f'Auto-created category: {category_value}',
+                        'created_by': request.user if request.user.is_authenticated else None
+                    }
+                )
+                data['category'] = category.id
+                print(f"{'Created new' if created else 'Found existing'} category with ID: {category.id}")
+            except Exception as e:
+                print(f"Error creating category: {str(e)}")
+                return Response(
+                    {'error': f'Failed to create category: {str(e)}'}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+        
+        print("Final data being sent to serializer:", data)
+        
+        serializer = self.get_serializer(instance, data=data, partial=partial)
         
         if not serializer.is_valid():
             print("Validation errors:", serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-        serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)
 
@@ -145,6 +212,7 @@ class ProductViewSet(viewsets.ModelViewSet):
             'categories_count': categories_count,
             'branches_count': branches_count
         })
+
 # Admin Dashboard View (NO AUTH REQUIRED)
 from rest_framework.views import APIView
 
